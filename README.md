@@ -8,7 +8,7 @@ Começamos o projeto em Python, com um assistente executado pelo terminal. Depoi
 
 - **Leonardo Duarte** — RM 569029
 - **Enzo de Nadai** — RM 569985
-- **Eduardo Oliveira**
+- **Eduardo Oliveira** - RM 570374
 
 ## O que o aplicativo faz
 
