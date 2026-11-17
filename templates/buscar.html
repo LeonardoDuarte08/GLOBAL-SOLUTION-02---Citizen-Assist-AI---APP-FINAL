@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Pesquisar · Citizen Assist{% endblock %}
+{% block content %}
+<section class="page-heading">
+<span class="overline">PESQUISA</span>
+<h1>O que você precisa saber?</h1>
+<p>Digite sua dúvida e veja as orientações mais relacionadas.</p>
+<form class="search search-light" action="{{ url_for('buscar') }}" method="get">
+<label class="sr-only" for="q">Pesquisar</label>
+<span class="search-icon">
+<i data-lucide="search" aria-hidden="true">
+</i>
+</span>
+<input id="q" name="q" value="{{ termo }}" placeholder="Ex.: Como evitar golpes?" required>
+<button type="submit">Buscar <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</button>
+</form>
+</section>
+{% if termo %}
+<div class="section-heading">
+<h2>Resultados para “{{ termo }}”</h2>
+<span class="muted">{{ resultados|length }} encontrado(s)</span>
+</div>
+{% if resultados %}
+<div class="article-grid">
+{% for pontos, item in resultados %}
+<a class="article-card" href="{{ url_for('detalhe', identificador=item.id) }}">
+<span class="article-tag">{{ item.categoria }}</span>
+<h3>{{ item.titulo }}</h3>
+<p>{{ item.resposta[:165] }}</p>
+<span class="card-link">Ver orientação <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</a>
+{% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+<h3>Não encontramos uma orientação com essas palavras.</h3>
+<p>Tente outros termos ou navegue pelas categorias.</p>
+<a class="secondary-button" href="{{ url_for('categorias') }}">Explorar categorias</a>
+</div>
+{% endif %}
+{% else %}
+<div class="empty-state">
+<h3>Comece sua pesquisa acima.</h3>
+<p>Você pode escrever sua dúvida do seu jeito.</p>
+</div>
+{% endif %}
+{% endblock %}

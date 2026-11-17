@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Meus indicadores · Citizen Assist{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <span class="overline">MINHA ATIVIDADE</span>
+  <h1>Meus indicadores</h1>
+  <p>Acompanhe suas pesquisas e veja como o aplicativo ajudou você.</p>
+</section>
+<div class="stats-grid">
+  <div class="stat-card"><span class="stat-icon lavender"><i data-lucide="search"></i></span><strong>{{ total }}</strong><span>Pesquisas realizadas</span></div>
+  <div class="stat-card"><span class="stat-icon mint"><i data-lucide="circle-check"></i></span><strong>{{ taxa_encontradas }}%</strong><span>Pesquisas com resultados</span></div>
+  <div class="stat-card"><span class="stat-icon peach"><i data-lucide="book-open"></i></span><strong>{{ visualizacoes }}</strong><span>Orientações visualizadas</span></div>
+  <div class="stat-card"><span class="stat-icon lavender"><i data-lucide="thumbs-up"></i></span><strong>{{ taxa_ajuda }}%</strong><span>Avaliações positivas ({{ avaliadas }} avaliações)</span></div>
+</div>
+<section class="section">
+  <div class="section-heading"><div><span class="overline">RESUMO</span><h2>Como calculamos</h2></div></div>
+  <div class="detail-grid">
+    <div><h3>Resultados encontrados</h3><p>Foram {{ encontradas }} pesquisas com ao menos uma orientação encontrada, entre {{ total }} pesquisas realizadas.</p></div>
+    <div><h3>Orientações úteis</h3><p>{{ positivas }} respostas avaliadas como úteis entre {{ avaliadas }} avaliações recebidas.</p></div>
+  </div>
+  <a href="{{ url_for('historico') }}" class="secondary-button"><i data-lucide="history"></i> Abrir meu histórico</a>
+</section>
+{% endblock %}

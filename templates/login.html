@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Entrar · Citizen Assist{% endblock %}
+{% block content %}
+<section class="auth-layout">
+<div class="auth-intro">
+<span class="eyebrow">SEU ESPAÇO DE CIDADANIA DIGITAL</span>
+<h1>Informação confiável, <em>mais perto de você.</em>
+</h1>
+<p>Encontre orientações, tire dúvidas e navegue com mais segurança. Tudo em um só lugar.</p>
+<div class="auth-features">
+<span>
+<i data-lucide="check" aria-hidden="true">
+</i> Respostas em linguagem simples</span>
+<span>
+<i data-lucide="check" aria-hidden="true">
+</i> Serviços e direitos</span>
+<span>
+<i data-lucide="check" aria-hidden="true">
+</i> Segurança digital</span>
+</div>
+</div>
+<div class="auth-card">
+<div class="small-icon">
+<i data-lucide="sparkles" aria-hidden="true">
+</i>
+</div>
+<h2>Que bom ter você aqui!</h2>
+<p class="muted">Entre na sua conta para continuar.</p>
+<form method="post">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label for="email">E-mail</label>
+<input id="email" type="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+<label for="senha">Senha</label>
+<input id="senha" type="password" name="senha" autocomplete="current-password" placeholder="Sua senha" required>
+<button class="primary-button" type="submit">Entrar na minha conta <span>
+<i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</button>
+</form>
+<p class="form-foot">Ainda não tem conta? <a href="{{ url_for('cadastro') }}">Criar conta grátis</a>
+</p>
+</div>
+</section>
+{% endblock %}

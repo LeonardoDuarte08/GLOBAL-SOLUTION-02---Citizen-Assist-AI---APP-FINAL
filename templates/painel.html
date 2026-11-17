@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block title %}Início · Citizen Assist<section class="section">
+  <div class="section-heading"><div><span class="overline">SUA ATIVIDADE</span><h2>Acompanhe suas consultas</h2></div></div>
+  <div class="actions-grid">
+    <a class="action-card" href="{{ url_for('historico') }}"><span class="action-icon lavender"><i data-lucide="history"></i></span><h3>Meu histórico</h3><p>Reveja as orientações que você pesquisou.</p><span class="card-link">Ver histórico <i data-lucide="arrow-right"></i></span></a>
+    <a class="action-card" href="{{ url_for('indicadores') }}"><span class="action-icon mint"><i data-lucide="chart-no-axes-column"></i></span><h3>Meus indicadores</h3><p>Acompanhe suas pesquisas e avaliações.</p><span class="card-link">Ver indicadores <i data-lucide="arrow-right"></i></span></a>
+  </div>
+</section>
+{% endblock %}
+{% block content %}
+<section class="hero">
+<div class="hero-copy">
+<span class="eyebrow">OLÁ, {{ nome.split(' ')[0]|upper }}</span>
+<h1>Como podemos <em>ajudar você hoje?</em>
+</h1>
+<p>Encontre informações sobre seus direitos, serviços digitais e segurança na internet.</p>
+<form class="search" action="{{ url_for('buscar') }}" method="get">
+<label for="busca-home" class="sr-only">O que você procura?</label>
+<span class="search-icon">
+<i data-lucide="search" aria-hidden="true">
+</i>
+</span>
+<input id="busca-home" name="q" placeholder="Ex.: Como identificar um golpe por e-mail?" required>
+<button type="submit">Pesquisar <span>
+<i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</button>
+</form>
+<div class="search-tips">Experimente: <a href="{{ url_for('buscar', q='phishing') }}">phishing</a> · <a href="{{ url_for('buscar', q='compra online') }}">compra online</a> · <a href="{{ url_for('buscar', q='gov.br') }}">gov.br</a>
+</div>
+</div>
+<div class="hero-visual" aria-hidden="true">
+<div class="orbit orbit-one">
+</div>
+<div class="orbit orbit-two">
+</div>
+<div class="visual-card">
+<span class="visual-emoji">
+<i data-lucide="sparkles" aria-hidden="true">
+</i>
+</span>
+<span>Informação que<br>faz a diferença</span>
+<span class="tiny-check">
+<i data-lucide="check" aria-hidden="true">
+</i>
+</span>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="section-heading">
+<div>
+<span class="overline">PRATICIDADE NO DIA A DIA</span>
+<h2>O que você deseja fazer?</h2>
+</div>
+</div>
+<div class="actions-grid">
+<a class="action-card" href="{{ url_for('buscar') }}">
+<span class="action-icon lavender">
+<i data-lucide="message-circle" aria-hidden="true">
+</i>
+</span>
+<h3>Tirar uma dúvida</h3>
+<p>Faça uma pergunta e encontre orientações relacionadas.</p>
+<span class="card-link">Começar <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</a>
+<a class="action-card" href="{{ url_for('categorias') }}">
+<span class="action-icon mint">
+<i data-lucide="book-open" aria-hidden="true">
+</i>
+</span>
+<h3>Explorar assuntos</h3>
+<p>Navegue por temas e encontre o que você precisa.</p>
+<span class="card-link">Ver categorias <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</a>
+<a class="action-card" href="{{ url_for('verificar_url_pagina') }}">
+<span class="action-icon peach">
+<i data-lucide="shield-check" aria-hidden="true">
+</i>
+</span>
+<h3>Verificar um link</h3>
+<p>Entenda como checar links e navegar com mais atenção.</p>
+<span class="card-link">Saiba mais <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</a>
+</div>
+</section>
+<section class="section">
+<div class="section-heading">
+<div>
+<span class="overline">ENCONTRE PELO ASSUNTO</span>
+<h2>Explore as categorias</h2>
+</div>
+<a class="more-link" href="{{ url_for('categorias') }}">Ver todas <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</a>
+</div>
+<div class="category-row">
+{% for categoria in categorias %}
+<a class="category-chip" href="{{ url_for('categoria', nome=categoria) }}">
+<span>
+<i data-lucide="{{ ['shield-check', 'scale', 'landmark'][loop.index0 % 3] }}" aria-hidden="true">
+</i>
+</span>{{ categoria }}<span class="chip-arrow">
+<i data-lucide="arrow-up-right" aria-hidden="true">
+</i>
+</span>
+</a>
+{% endfor %}
+</div>
+</section>
+<section class="section">
+<div class="section-heading">
+<div>
+<span class="overline">PARA COMEÇAR</span>
+<h2>Orientações disponíveis</h2>
+</div>
+</div>
+<div class="article-grid">
+{% for item in recentes %}
+<a class="article-card" href="{{ url_for('detalhe', identificador=item.id) }}">
+<span class="article-tag">{{ item.categoria }}</span>
+<h3>{{ item.titulo }}</h3>
+<p>{{ item.resposta[:125] }}{% if item.resposta|length > 125 %}...{% endif %}
+</p>
+<span class="card-link">Ler orientação <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</a>
+{% endfor %}
+</div>
+</section>
+<section class="section">
+  <div class="section-heading"><div><span class="overline">SUA ATIVIDADE</span><h2>Acompanhe suas consultas</h2></div></div>
+  <div class="actions-grid">
+    <a class="action-card" href="{{ url_for('historico') }}"><span class="action-icon lavender"><i data-lucide="history"></i></span><h3>Meu histórico</h3><p>Reveja as orientações que você pesquisou.</p><span class="card-link">Ver histórico <i data-lucide="arrow-right"></i></span></a>
+    <a class="action-card" href="{{ url_for('indicadores') }}"><span class="action-icon mint"><i data-lucide="chart-no-axes-column"></i></span><h3>Meus indicadores</h3><p>Acompanhe suas pesquisas e avaliações.</p><span class="card-link">Ver indicadores <i data-lucide="arrow-right"></i></span></a>
+  </div>
+</section>
+{% endblock %}

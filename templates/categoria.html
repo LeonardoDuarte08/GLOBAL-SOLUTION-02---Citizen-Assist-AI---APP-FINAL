@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{{ nome }} · Citizen Assist{% endblock %}
+{% block content %}
+<section class="page-heading">
+<a class="back-link" href="{{ url_for('categorias') }}">
+<i data-lucide="arrow-left" aria-hidden="true">
+</i> Voltar às categorias</a>
+<span class="overline">CATEGORIA</span>
+<h1>{{ nome }}</h1>
+<p>Confira as orientações disponíveis neste assunto.</p>
+</section>
+<div class="article-grid">
+{% for item in itens %}
+<a class="article-card" href="{{ url_for('detalhe', identificador=item.id) }}">
+<span class="article-tag">{{ item.categoria }}</span>
+<h3>{{ item.titulo }}</h3>
+<p>{{ item.resposta[:165] }}</p>
+<span class="card-link">Ler orientação <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</a>
+{% endfor %}
+</div>
+{% endblock %}

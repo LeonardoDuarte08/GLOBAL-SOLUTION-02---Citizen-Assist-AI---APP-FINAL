@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Criar conta · Citizen Assist{% endblock %}
+{% block content %}
+<section class="auth-layout">
+<div class="auth-intro">
+<span class="eyebrow">COMECE AGORA</span>
+<h1>Seu acesso à informação <em>começa aqui.</em>
+</h1>
+<p>Crie sua conta e descubra como o Citizen Assist pode ajudar no dia a dia.</p>
+</div>
+<div class="auth-card">
+<div class="small-icon">
+<i data-lucide="sparkles" aria-hidden="true">
+</i>
+</div>
+<h2>Criar minha conta</h2>
+<p class="muted">Preencha seus dados para começar.</p>
+<form method="post">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label for="nome">Nome</label>
+<input id="nome" name="nome" autocomplete="name" placeholder="Como podemos chamar você?" required>
+<label for="email">E-mail</label>
+<input id="email" type="email" name="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+<label for="senha">Senha</label>
+<input id="senha" type="password" name="senha" autocomplete="new-password" minlength="8" placeholder="Pelo menos 8 caracteres" required>
+<label for="confirmar">Confirmar senha</label>
+<input id="confirmar" type="password" name="confirmar" autocomplete="new-password" minlength="8" placeholder="Digite novamente" required>
+<button class="primary-button" type="submit">Criar minha conta <span>
+<i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</button>
+</form>
+<p class="form-foot">Já tem conta? <a href="{{ url_for('login') }}">Entrar</a>
+</p>
+</div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Admin · Citizen Assist{% endblock %}
+{% block content %}
+<section class="page-heading">
+<span class="overline">ACESSO ADMINISTRATIVO</span>
+<h1>Base de orientações</h1>
+<p>Cadastre, atualize e organize o conteúdo disponível no aplicativo.</p>
+<div class="admin-actions">
+<a class="primary-button inline-button" href="{{ url_for('admin_nova') }}">
+<i data-lucide="plus" aria-hidden="true">
+</i> Nova orientação</a>
+<form method="post" action="{{ url_for('admin_ordenar') }}">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<button type="submit" class="secondary-button">Ordenar por título (Bubble Sort)</button>
+</form>
+</div>
+</section>
+<div class="admin-list">
+{% for item in itens %}
+<div class="admin-item">
+<div>
+<span class="article-tag">ID {{ item.id }} · {{ item.categoria }}</span>
+<h3>{{ item.titulo }}</h3>
+</div>
+<div class="item-actions">
+<a href="{{ url_for('admin_editar', identificador=item.id) }}" class="secondary-button">Editar</a>
+<form method="post" action="{{ url_for('admin_excluir', identificador=item.id) }}" onsubmit="return confirm('Excluir esta orientação?')">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<button type="submit" class="delete-button">Excluir</button>
+</form>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

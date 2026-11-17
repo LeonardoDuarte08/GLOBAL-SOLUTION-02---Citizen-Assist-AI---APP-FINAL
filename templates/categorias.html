@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Categorias · Citizen Assist{% endblock %}
+{% block content %}
+<section class="page-heading">
+<span class="overline">EXPLORE</span>
+<h1>Assuntos que podem ajudar</h1>
+<p>Selecione uma categoria para descobrir orientações.</p>
+</section>
+<div class="actions-grid">
+{% for nome in categorias %}
+<a class="action-card" href="{{ url_for('categoria', nome=nome) }}">
+<span class="action-icon {{ ['lavender','mint','peach'][loop.index0 % 3] }}">
+<i data-lucide="{{ ['shield-check', 'scale', 'landmark'][loop.index0 % 3] }}" aria-hidden="true">
+</i>
+</span>
+<h3>{{ nome }}</h3>
+<p>Veja dicas e informações sobre este assunto.</p>
+<span class="card-link">Explorar <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</span>
+</a>
+{% endfor %}
+</div>
+{% endblock %}

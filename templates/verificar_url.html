@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Verificar links | Citizen Assist AI{% endblock %}
+{% block content %}
+<section class="page-heading">
+    <span class="overline">SEGURANÇA DIGITAL</span>
+    <h1>Esse link é seguro?</h1>
+    <p>Recebeu um link suspeito por mensagem, e-mail ou rede social? Faça uma verificação antes de acessar.</p>
+</section>
+<div class="editor-card verificador">
+    <div class="verificador-topo">
+        <div class="action-icon mint"><i data-lucide="shield-check" aria-hidden="true"></i></div>
+        <div>
+            <h2>Verificador de links</h2>
+            <p class="muted">Consulte ameaças conhecidas com o Google Safe Browsing.</p>
+        </div>
+    </div>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="url">Endereço do site</label>
+        <input id="url" type="url" name="url" placeholder="https://exemplo.com" value="{{ url }}" maxlength="2048" required>
+        <button type="submit" class="primary-button">
+            <i data-lucide="scan-search" aria-hidden="true"></i> Verificar segurança
+        </button>
+    </form>
+    {% if resultado %}
+    <div class="resultado-url {{ resultado.status }}" role="status">
+        {% if resultado.status == 'perigo' %}
+            <div class="resultado-icone"><i data-lucide="shield-alert" aria-hidden="true"></i></div>
+        {% elif resultado.status == 'sem_ameacas' %}
+            <div class="resultado-icone"><i data-lucide="circle-check" aria-hidden="true"></i></div>
+        {% else %}
+            <div class="resultado-icone"><i data-lucide="info" aria-hidden="true"></i></div>
+        {% endif %}
+        <h3>{{ resultado.mensagem }}</h3>
+        {% if resultado.detalhes %}<p>{{ resultado.detalhes }}</p>{% endif %}
+    </div>
+    {% endif %}
+</div>
+<section class="section">
+    <div class="section-heading">
+        <div><span class="overline">DICAS DE SEGURANÇA</span><h2>Antes de clicar em um link</h2></div>
+    </div>
+    <div class="actions-grid">
+        <div class="action-card">
+            <div class="action-icon lavender"><i data-lucide="search-check" aria-hidden="true"></i></div>
+            <h3>Confira o endereço</h3>
+            <p>Verifique se o domínio realmente pertence à empresa ou ao serviço que você procura.</p>
+        </div>
+        <div class="action-card">
+            <div class="action-icon peach"><i data-lucide="lock-keyhole" aria-hidden="true"></i></div>
+            <h3>Proteja seus dados</h3>
+            <p>Evite informar senhas, documentos ou dados bancários em sites desconhecidos.</p>
+        </div>
+        <div class="action-card">
+            <div class="action-icon mint"><i data-lucide="lightbulb" aria-hidden="true"></i></div>
+            <h3>Desconfie de urgências</h3>
+            <p>Mensagens com ameaças, cobranças inesperadas ou ofertas exageradas podem ser golpes.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

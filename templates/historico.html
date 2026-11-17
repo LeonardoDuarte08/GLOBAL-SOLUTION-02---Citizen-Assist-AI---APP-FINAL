@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Meu histórico · Citizen Assist{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <span class="overline">MINHAS CONSULTAS</span>
+  <h1>Meu histórico</h1>
+  <p>Encontre suas pesquisas e orientações visualizadas recentemente.</p>
+</section>
+{% if consultas %}
+<div class="history-list">
+  {% for item in consultas %}
+  <div class="history-item">
+    <span class="history-icon"><i data-lucide="{{ 'search' if item.tipo == 'pesquisa' else 'book-open' }}"></i></span>
+    <div class="history-content">
+      <span class="history-kind">{{ 'Pesquisa' if item.tipo == 'pesquisa' else 'Orientação visualizada' }}</span>
+      <h3>{{ item.pergunta }}</h3>
+      <p class="muted">{{ item.criado_em }} · {% if item.tipo == 'pesquisa' %}{{ 'Encontramos orientações' if item.encontrou else 'Sem resultados' }}{% else %}{% if item.ajudou is none %}Ainda não avaliada{% elif item.ajudou %}Você marcou como útil{% else %}Você marcou como não útil{% endif %}{% endif %}</p>
+    </div>
+    {% if item.orientacao_id %}
+    <a class="secondary-button" href="{{ url_for('detalhe', identificador=item.orientacao_id) }}">Abrir <i data-lucide="arrow-up-right"></i></a>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state"><i data-lucide="history" class="empty-icon"></i><h3>Seu histórico ainda está vazio.</h3><p>Faça uma pesquisa ou explore as categorias para começar.</p><a class="secondary-button" href="{{ url_for('buscar') }}">Pesquisar agora</a></div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}{{ orientacao.titulo }} · Citizen Assist{% endblock %}
+{% block content %}
+<article class="detail">
+<a class="back-link" href="{{ url_for('categorias') }}">
+<i data-lucide="arrow-left" aria-hidden="true">
+</i> Explorar assuntos</a>
+<span class="article-tag">{{ orientacao.categoria }}</span>
+<h1>{{ orientacao.titulo }}</h1>
+<p class="lead">{{ orientacao.resposta }}</p>
+<div class="detail-grid">
+<div>
+<h3>Para quem é?</h3>
+<p>{{ orientacao.publico_alvo }}</p>
+</div>
+<div>
+<h3>Onde procurar atendimento?</h3>
+<p>{{ orientacao.onde }}</p>
+</div>
+</div>
+{% if orientacao.documentos %}
+<h3>Documentos</h3>
+<ul>
+{% for doc in orientacao.documentos %}
+<li>{{ doc }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+<div class="source">
+<strong>Fonte consultada</strong>
+<p>
+<a href="{{ orientacao.fonte }}" rel="noopener noreferrer" target="_blank">{{ orientacao.fonte }}</a>
+</p>
+<small>Verificado em {{ orientacao.verificado_em }} · Este aplicativo não é um canal oficial.</small>
+</div>
+<section class="feedback-card">
+  <div class="feedback-icon"><i data-lucide="thumbs-up" aria-hidden="true"></i></div>
+  <div>
+    <h3>Essa orientação ajudou você?</h3>
+    <p class="muted">Sua avaliação nos ajuda a melhorar o Citizen Assist AI.</p>
+  </div>
+  <div class="feedback-actions">
+    <form method="post" action="{{ url_for('avaliar_resposta', consulta_id=consulta_id) }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="ajudou" value="sim">
+      <button type="submit" class="secondary-button"><i data-lucide="thumbs-up"></i> Sim, ajudou</button>
+    </form>
+    <form method="post" action="{{ url_for('avaliar_resposta', consulta_id=consulta_id) }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="ajudou" value="nao">
+      <button type="submit" class="secondary-button"><i data-lucide="thumbs-down"></i> Ainda não</button>
+    </form>
+  </div>
+</section>
+</article>
+{% endblock %}

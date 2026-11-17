@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Editar conteúdo · Citizen Assist{% endblock %}
+{% block content %}
+<section class="page-heading">
+<a class="back-link" href="{{ url_for('admin') }}">
+<i data-lucide="arrow-left" aria-hidden="true">
+</i> Voltar à administração</a>
+<span class="overline">ÁREA ADMIN</span>
+<h1>{{ 'Editar orientação' if orientacao else 'Nova orientação' }}</h1>
+</section>
+<div class="editor-card">
+<form method="post">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+{% if not orientacao %}
+<label>ID</label>
+<input type="number" min="1" name="id" required>
+{% endif %}
+<label>Título</label>
+<input name="titulo" required value="{{ orientacao.titulo if orientacao else '' }}">
+<label>Categoria</label>
+<input name="categoria" required value="{{ orientacao.categoria if orientacao else '' }}">
+<label>Descrição / resposta</label>
+<textarea name="resposta" rows="5" required>{{ orientacao.resposta if orientacao else '' }}</textarea>
+<label>Público-alvo</label>
+<input name="publico_alvo" required value="{{ orientacao.publico_alvo if orientacao else '' }}">
+<label>Canal ou local de atendimento</label>
+<input name="onde" required value="{{ orientacao.onde if orientacao else '' }}">
+<label>Fonte</label>
+<input name="fonte" required value="{{ orientacao.fonte if orientacao else '' }}">
+<label>Palavras-chave (separadas por vírgula)</label>
+<input name="palavras_chave" required value="{{ orientacao.palavras_chave|join(', ') if orientacao else '' }}">
+<button class="primary-button" type="submit">Salvar orientação <i data-lucide="arrow-right" aria-hidden="true">
+</i>
+</button>
+</form>
+</div>
+{% endblock %}
